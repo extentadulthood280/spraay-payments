@@ -1,37 +1,41 @@
-# Contributing to spraay-payments
+# Contributing to spraay-payments 💧
 
-Thank you for your interest in contributing to **spraay-payments**! This document provides guidelines and instructions for contributing to the multi-chain crypto payments platform for OpenClaw agents.
+Thank you for your interest in contributing to spraay-payments! This document provides guidelines and instructions for contributing to our multi-chain crypto payment protocol.
 
 ## Table of Contents
 
 - [Code of Conduct](#code-of-conduct)
 - [Getting Started](#getting-started)
-- [How to Contribute](#how-to-contribute)
 - [Development Setup](#development-setup)
 - [Project Structure](#project-structure)
+- [Contributing Workflow](#contributing-workflow)
 - [Coding Standards](#coding-standards)
-- [Submitting Changes](#submitting-changes)
+- [Testing](#testing)
 - [Security](#security)
 - [Community](#community)
 
 ## Code of Conduct
 
-We are committed to providing a welcoming and inclusive experience for everyone:
-- Be respectful and constructive in all interactions
-- Welcome newcomers and help them get started
-- Focus on what is best for the community and the project
-- Show empathy towards others
+This project adheres to a code of conduct. By participating, you are expected to uphold this code:
+
+- Be respectful and inclusive
+- Welcome newcomers
+- Focus on constructive feedback
+- Respect different viewpoints and experiences
 
 ## Getting Started
 
 ### Prerequisites
 
-Before you begin, ensure you have:
 - **Node.js** (v18 or higher)
 - **npm** or **yarn**
 - **Git**
-- **MetaMask** or another Web3 wallet for testing
-- **Windows OS** (for desktop app testing)
+- **curl** and **jq** (for testing API endpoints)
+- A crypto wallet (for testing x402 payments)
+- Familiarity with:
+  - x402 payment protocol
+  - Multi-chain crypto transactions
+  - REST APIs
 
 ### Quick Start
 
@@ -41,172 +45,129 @@ Before you begin, ensure you have:
    git clone https://github.com/YOUR_USERNAME/spraay-payments.git
    cd spraay-payments
    ```
-
 3. **Install dependencies**:
    ```bash
    npm install
    ```
-
-4. **Set up environment variables**:
+4. **Set up environment**:
    ```bash
-   cp .env.example .env
-   # Edit .env with your configuration
+   export SPRAAY_GATEWAY_URL="https://gateway.spraay.app"
+   ```
+5. **Run tests**:
+   ```bash
+   npm test
    ```
 
-## How to Contribute
+### Understanding x402
 
-### Types of Contributions Welcome
+spraay-payments uses the x402 protocol for micropayments:
 
-- **Bug Reports**: Report issues you encounter
-- **Feature Requests**: Suggest new features or improvements
-- **Code Contributions**: Fix bugs or implement new features
-- **Documentation**: Improve README, code comments, or guides
-- **Testing**: Add test cases and help with QA
-- **Translations**: Translate documentation to other languages
-- **Examples**: Add example scripts and use cases
+- **HTTP 402**: Payment Required response
+- **Automatic retry**: Client pays and retries automatically
+- **No API keys**: Payments authenticate requests
+- **Per-request pricing**: Each endpoint has its own cost
 
-### Reporting Bugs
-
-Before creating a bug report:
-1. Check if the issue already exists in [Issues](https://github.com/extentadulthood280/spraay-payments/issues)
-2. Update to the latest version to see if the bug is resolved
-
-When reporting bugs, include:
-- **Clear title and description**
-- **Steps to reproduce** the issue
-- **Expected behavior** vs **actual behavior**
-- **Screenshots** if applicable
-- **Environment details** (OS, Node version, wallet used)
-- **Error messages** or logs
-
-### Suggesting Features
-
-Feature requests are welcome! Please:
-- Use a clear, descriptive title
-- Provide detailed description of the proposed feature
-- Explain why this feature would be useful
-- Consider potential implementation approaches
+Learn more: [x402 Protocol Specification](https://github.com/coinbase/x402)
 
 ## Development Setup
 
-### Running Locally
+### Local Development
+
+1. **Install dependencies**:
+   ```bash
+   npm install
+   ```
+
+2. **Set up environment variables**:
+   ```bash
+   # Required
+   export SPRAAY_GATEWAY_URL="https://gateway.spraay.app"
+   
+   # Optional - for testing with your own wallet
+   export PRIVATE_KEY="your_test_wallet_private_key"
+   export RPC_URL="https://mainnet.base.org"
+   ```
+
+3. **Run the development server**:
+   ```bash
+   npm run dev
+   ```
+
+### Testing x402 Payments
+
+To test paid endpoints:
 
 ```bash
-# Install dependencies
-npm install
+# Test a free endpoint (no payment required)
+curl "$SPRAAY_GATEWAY_URL/api/health"
 
-# Start development server
-npm run dev
-
-# Build for production
-npm run build
-
-# Run tests
-npm test
+# Test a paid endpoint (requires x402 payment)
+curl -X POST "$SPRAAY_GATEWAY_URL/api/batch-payment" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "recipients": [
+      {"address": "0xABC...123", "amount": "10", "token": "USDC"}
+    ],
+    "chain": "base"
+  }'
 ```
-
-### Testing Payment Features
-
-When testing payment features:
-1. Use testnet networks (Sepolia, Mumbai, etc.)
-2. Never use real funds for testing
-3. Use test wallet addresses
-4. Verify transaction receipts before considering tests complete
 
 ### Supported Chains for Testing
 
-- Ethereum Sepolia
-- Base Sepolia
-- Polygon Mumbai
-- Arbitrum Sepolia
+- **Base** (primary)
+- Ethereum
+- Arbitrum
+- Polygon
+- BNB Chain
+- Avalanche
+- Solana
+- Unichain
+- Plasma
+- BOB
+- Bittensor
 
 ## Project Structure
 
 ```
 spraay-payments/
-├── scripts/            # Core scripts and utilities
-├── examples/           # Example implementations
-├── src/                # Source code
-├── tests/              # Test files
-├── docs/               # Documentation
-├── .github/            # GitHub templates and workflows
-└── README.md           # Main documentation
+├── README.md              # User documentation
+├── SKILL.md               # OpenClaw skill definition
+├── package.json           # Dependencies and scripts
+├── examples/              # Usage examples
+│   ├── batch-payment.js
+│   ├── payroll.js
+│   ├── swap.js
+│   └── invoice.js
+├── src/
+│   ├── index.js           # Main entry point
+│   ├── api/               # API client
+│   ├── chains/            # Chain configurations
+│   ├── payments/          # Payment utilities
+│   └── utils/             # Helper functions
+├── tests/                 # Test suite
+└── scripts/               # Build and utility scripts
 ```
 
-## Coding Standards
+### Key Components
 
-### JavaScript/TypeScript
+- **Gateway Client**: Communicates with `https://gateway.spraay.app`
+- **x402 Handler**: Manages payment flows and retries
+- **Chain Configs**: Multi-chain support (11 chains)
+- **Payment Utils**: Batch payments, payroll, swaps, invoices
 
-- Use **ESLint** configuration provided in the project
-- Follow **Prettier** formatting rules
-- Use meaningful variable and function names
-- Add JSDoc comments for public functions
-- Maximum line length: 100 characters
+## Contributing Workflow
 
-Example:
-```javascript
-/**
- * Process a batch payment across multiple chains
- * @param {Array} payments - Array of payment objects
- * @param {string} fromChain - Source chain identifier
- * @returns {Promise<Object>} Transaction receipt
- */
-async function processBatchPayment(payments, fromChain) {
-  // Implementation
-}
-```
+### Branch Naming
 
-### Smart Contract Interactions
+- `feature/description` - New features
+- `fix/description` - Bug fixes
+- `docs/description` - Documentation updates
+- `test/description` - Test additions/improvements
+- `refactor/description` - Code refactoring
 
-- Always validate addresses before transactions
-- Implement proper error handling
-- Use try-catch for async operations
-- Log important transaction details
+Example: `feature/add-optimism-support`
 
-### Documentation
-
-- Keep README.md up to date
-- Document all environment variables
-- Include code examples for complex features
-- Update SKILL.md when adding new capabilities
-
-## Submitting Changes
-
-### Pull Request Process
-
-1. **Create a feature branch**:
-   ```bash
-   git checkout -b feature/your-feature-name
-   # or for bug fixes:
-   git checkout -b fix/issue-description
-   ```
-
-2. **Make your changes** following coding standards
-
-3. **Test thoroughly**:
-   - Run all existing tests
-   - Add new tests for new features
-   - Test on testnet before submitting
-
-4. **Commit with clear messages**:
-   ```bash
-   git add .
-   git commit -m "feat: add support for Base mainnet batch payments"
-   ```
-
-5. **Push to your fork**:
-   ```bash
-   git push origin feature/your-feature-name
-   ```
-
-6. **Create a Pull Request**:
-   - Use a clear, descriptive title
-   - Reference any related issues
-   - Describe what changes were made and why
-   - Include screenshots for UI changes
-   - List any breaking changes
-
-### Commit Message Format
+### Commit Messages
 
 We follow [Conventional Commits](https://www.conventionalcommits.org/):
 
@@ -222,76 +183,227 @@ Types:
 - `feat`: New feature
 - `fix`: Bug fix
 - `docs`: Documentation changes
-- `style`: Code style (formatting, no logic change)
+- `test`: Test changes
 - `refactor`: Code refactoring
-- `test`: Adding or updating tests
-- `chore`: Build process or auxiliary changes
+- `perf`: Performance improvements
+- `chore`: Maintenance tasks
 
 Examples:
 ```
-feat(payments): add invoice generation feature
-fix(swaps): resolve token approval issue on Base
- docs(readme): update installation instructions
-test(batch): add tests for multi-chain payments
+feat(chains): add Optimism chain support
+fix(payments): resolve batch payment calculation error
+docs(api): update endpoint documentation
+test(x402): add payment retry tests
 ```
 
-### PR Review Process
+### Pull Request Process
 
-- All PRs require at least one review
-- Address review feedback promptly
-- Keep PRs focused and reasonably sized
-- Ensure CI checks pass
+1. **Create a branch** for your changes
+2. **Make your changes** following our coding standards
+3. **Test thoroughly** including x402 payment flows
+4. **Update documentation** if needed
+5. **Submit a pull request** with:
+   - Clear title and description
+   - Reference to any related issues
+   - Test results
+   - Screenshots (if UI changes)
+
+### PR Review Criteria
+
+- Code follows style guidelines
+- Tests pass
+- Documentation is updated
+- x402 payment flows work correctly
+- Multi-chain compatibility maintained
+
+## Coding Standards
+
+### JavaScript/TypeScript Style
+
+- Use **ESLint** for linting
+- Follow **Prettier** formatting
+- Use **async/await** for asynchronous code
+- Add **JSDoc comments** for public APIs
+
+Example:
+```javascript
+/**
+ * Send a batch payment to multiple recipients
+ * @param {Array} recipients - Array of recipient objects
+ * @param {string} chain - Target chain (base, ethereum, etc.)
+ * @returns {Promise<Object>} Transaction result
+ */
+async function sendBatchPayment(recipients, chain) {
+  // Implementation
+}
+```
+
+### Error Handling
+
+Always handle errors gracefully:
+
+```javascript
+try {
+  const result = await api.sendBatchPayment(recipients, chain);
+  return result;
+} catch (error) {
+  if (error.code === 'INSUFFICIENT_FUNDS') {
+    throw new PaymentError('Insufficient funds for payment', error);
+  }
+  if (error.code === 'X402_PAYMENT_REQUIRED') {
+    // Handle x402 payment flow
+    return await handleX402Payment(error);
+  }
+  throw error;
+}
+```
+
+### Chain Configuration
+
+When adding new chains:
+
+```javascript
+const chains = {
+  base: {
+    id: 8453,
+    name: 'Base',
+    rpcUrl: 'https://mainnet.base.org',
+    nativeCurrency: 'ETH',
+    paymentContract: '0x1646452F98E36A3c9Cfc3eDD8868221E207B5eEC'
+  },
+  // Add new chain here
+};
+```
+
+## Testing
+
+### Running Tests
+
+```bash
+# Run all tests
+npm test
+
+# Run specific test file
+npm test -- batch-payment.test.js
+
+# Run with coverage
+npm run test:coverage
+```
+
+### Test Structure
+
+```javascript
+describe('Batch Payments', () => {
+  test('should send payment to multiple recipients', async () => {
+    const recipients = [
+      { address: '0x123...', amount: '10', token: 'USDC' },
+      { address: '0x456...', amount: '20', token: 'USDC' }
+    ];
+    
+    const result = await sendBatchPayment(recipients, 'base');
+    
+    expect(result.success).toBe(true);
+    expect(result.transactions).toHaveLength(2);
+  });
+  
+  test('should handle x402 payment required', async () => {
+    // Test x402 flow
+  });
+});
+```
+
+### Integration Testing
+
+Test against the live gateway:
+
+```bash
+# Set test environment
+export SPRAAY_GATEWAY_URL="https://gateway.spraay.app"
+export TEST_WALLET_KEY="your_test_key"
+
+# Run integration tests
+npm run test:integration
+```
+
+### Manual Testing Checklist
+
+- [ ] Free endpoints work without payment
+- [ ] Paid endpoints trigger x402 flow
+- [ ] Batch payments work on all supported chains
+- [ ] Payroll functionality works
+- [ ] Token swaps execute correctly
+- [ ] Invoices can be created and paid
+- [ ] Error messages are clear and helpful
 
 ## Security
 
-### Reporting Security Issues
+### Reporting Vulnerabilities
 
-**DO NOT** open public issues for security vulnerabilities.
+If you discover a security vulnerability:
 
-Instead:
-1. Email security concerns to the maintainers
-2. Include detailed description and reproduction steps
-3. Allow reasonable time for response before public disclosure
+1. **DO NOT** open a public issue
+2. Email security@spraay.app with details
+3. Include steps to reproduce
+4. Allow time for remediation before disclosure
 
 ### Security Best Practices
 
-- Never commit private keys or sensitive data
-- Use environment variables for configuration
+- Never commit private keys
+- Use environment variables for sensitive data
 - Validate all user inputs
-- Follow Web3 security best practices
-- Be cautious with transaction approvals
+- Use HTTPS for all API calls
+- Implement proper error handling
+- Follow OWASP guidelines
+
+### Payment Security
+
+- Always verify payment amounts
+- Check recipient addresses
+- Use test networks for development
+- Implement proper retry logic
+- Log payment attempts (not keys)
 
 ## Community
 
 ### Communication Channels
 
 - **GitHub Issues**: Bug reports and feature requests
-- **GitHub Discussions**: Questions and ideas
-- **Project Website**: [spraay.io](https://spraay.io) (if applicable)
+- **GitHub Discussions**: General questions and ideas
+- **Discord**: [Join our community](https://discord.gg/spraay)
+- **Twitter**: [@spraayapp](https://twitter.com/spraayapp)
+
+### Getting Help
+
+- Check existing [issues](https://github.com/extentadulthood280/spraay-payments/issues)
+- Read the [documentation](https://docs.spraay.app)
+- Ask in GitHub Discussions
+- Join our Discord community
 
 ### Recognition
 
 Contributors will be:
 - Listed in CONTRIBUTORS.md
 - Mentioned in release notes
-- Credited in documentation where appropriate
+- Eligible for Spraay contributor rewards
 
-## Development Roadmap
+## Resources
 
-Check our [GitHub Projects](https://github.com/extentadulthood280/spraay-payments/projects) for:
-- Upcoming features
-- Known issues
-- Good first issues for newcomers
+### Learning Materials
 
-## Questions?
+- [x402 Protocol](https://github.com/coinbase/x402)
+- [Base Documentation](https://docs.base.org)
+- [EIP-1559](https://eips.ethereum.org/EIPS/eip-1559) - Fee market
+- [ERC-20](https://eips.ethereum.org/EIPS/eip-20) - Token standard
 
-If you have questions:
-1. Check existing [GitHub Issues](https://github.com/extentadulthood280/spraay-payments/issues)
-2. Open a [GitHub Discussion](https://github.com/extentadulthood280/spraay-payments/discussions)
-3. Contact the maintainers
+### Tools
+
+- [Coinbase CDP](https://docs.cdp.coinbase.com/) - Wallet SDK
+- [Viem](https://viem.sh/) - Ethereum library
+- [Ethers.js](https://docs.ethers.io/) - Ethereum library
+- [Jest](https://jestjs.io/) - Testing framework
 
 ---
 
-Thank you for helping make crypto payments easier for OpenClaw agents! 🚀
+Thank you for contributing to spraay-payments! Together we're building the future of multi-chain crypto payments. 💧
 
-*Built for the OpenClaw ecosystem on Base, Ethereum, Polygon, and more*
+**Happy coding! 🚀**
